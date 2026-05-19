@@ -1,0 +1,4 @@
+.prose .table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+}

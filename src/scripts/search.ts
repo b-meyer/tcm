@@ -1,0 +1,197 @@
+import fuzzysort from 'fuzzysort';
+import { computed, ref } from 'vue';
+import { flatOrder } from '@/scripts/router';
+import { slugify } from '@/scripts/utils';
+
+// ---- Index types ----
+
+export type SearchEntry = {
+  slug: string;
+  pageTitle: string;
+  heading: string;
+  headingId: string;
+  level: 1 | 2 | 3;
+  body: string;
+};
+
+export type IndexedEntry = SearchEntry & {
+  headingTarget: Fuzzysort.Prepared;
+  bodyTarget: Fuzzysort.Prepared;
+};
+
+export type SearchResult = Fuzzysort.KeysResult<IndexedEntry>;
+
+// ---- Index build (eager, runs at module load) ----
+
+const HEADING_RE = /^(#{1,3})\s+(.+)$/u;
+
+function stripMarkdown(s: string): string {
+  return s
+    .replaceAll(/`([^`]+)`/gu, '$1')
+    .replaceAll(/\*\*([^*]+)\*\*/gu, '$1')
+    .replaceAll(/\*([^*]+)\*/gu, '$1')
+    .replaceAll(/_([^_]+)_/gu, '$1')
+    .replaceAll(/\[([^\]]+)\]\([^)]+\)/gu, '$1')
+    .replaceAll(/<[^>]+>/gu, '')
+    .replaceAll(/\s+/gu, ' ')
+    .trim();
+}
+
+type RawSection = { level: 1 | 2 | 3; heading: string; bodyLines: string[] };
+
+function parseSections(source: string): RawSection[] {
+  const lines = source.split(/\r?\n/u);
+  const sections: RawSection[] = [];
+  let current: RawSection | null = null;
+  let inCode = false;
+  for (const line of lines) {
+    if (line.startsWith('```')) {
+      inCode = !inCode;
+    }
+    const m = inCode ? null : HEADING_RE.exec(line);
+    if (m) {
+      if (current) sections.push(current);
+      const level = m[1]!.length as 1 | 2 | 3;
+      current = { level, heading: m[2]!.trim(), bodyLines: [] };
+    } else if (current) {
+      current.bodyLines.push(line);
+    }
+  }
+  if (current) sections.push(current);
+  return sections;
+}
+
+const raw = import.meta.glob('../pages/*.md', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+}) as Record<string, string>;
+
+// Mirrors markdown-it-anchor's default dedup: same heading text on a page produces
+// `slug`, `slug-1`, `slug-2`, ... with per-page state. Keeps search-result anchors
+// aligned with rendered heading IDs even when headings repeat.
+function uniqueSlug(base: string, seen: Set<string>): string {
+  if (!seen.has(base)) {
+    seen.add(base);
+    return base;
+  }
+  let i = 1;
+  let candidate = `${base}-${i}`;
+  while (seen.has(candidate)) {
+    i++;
+    candidate = `${base}-${i}`;
+  }
+  seen.add(candidate);
+  return candidate;
+}
+
+function buildEntries(): SearchEntry[] {
+  const titleBySlug = new Map(flatOrder.map((i) => [i.slug, i.title]));
+  const entries: SearchEntry[] = [];
+  for (const [path, source] of Object.entries(raw)) {
+    const slug = path.replace(/^.*\/([^/]+)\.md$/u, '$1');
+    if (slug === 'NotFound') continue;
+    const pageTitle = titleBySlug.get(slug) ?? slug;
+    const seen = new Set<string>();
+    let added = 0;
+    for (const sec of parseSections(source)) {
+      const fullId = uniqueSlug(slugify(sec.heading), seen);
+      entries.push({
+        slug,
+        pageTitle,
+        heading: sec.heading,
+        headingId: sec.level === 1 ? '' : fullId,
+        level: sec.level,
+        body: stripMarkdown(sec.bodyLines.join('\n')),
+      });
+      added++;
+    }
+    if (added === 0) {
+      console.warn(`search.ts: "${slug}" yielded zero sections — missing a leading "# H1"?`);
+    }
+  }
+  return entries;
+}
+
+function prepare(e: SearchEntry): IndexedEntry {
+  return {
+    ...e,
+    headingTarget: fuzzysort.prepare(e.heading),
+    bodyTarget: fuzzysort.prepare(e.body),
+  };
+}
+
+const index: IndexedEntry[] = buildEntries().map((e) => prepare(e));
+
+// ---- Search ----
+
+const BODY_PENALTY = 0.2;
+const SCORE_THRESHOLD = 0.2;
+const RESULT_LIMIT = 20;
+
+function scoreFn(r: Fuzzysort.KeysResult<IndexedEntry>): number {
+  // r[0] / r[1] mirror the `keys: ['headingTarget', 'bodyTarget']` order below.
+  const headingScore = r[0] ? r[0].score : 0;
+  const bodyScore = r[1] ? Math.max(0, r[1].score - BODY_PENALTY) : 0;
+  return Math.max(headingScore, bodyScore);
+}
+
+function searchFor(q: string): readonly SearchResult[] {
+  if (!q) return [];
+  return fuzzysort.go(q, index, {
+    keys: ['headingTarget', 'bodyTarget'],
+    scoreFn,
+    threshold: SCORE_THRESHOLD,
+    limit: RESULT_LIMIT,
+  });
+}
+
+// ---- Search UI state (module-scoped singleton) ----
+
+const open = ref(false);
+const query = ref('');
+const selectedIndex = ref(0);
+const results = computed(() => searchFor(query.value.trim()));
+
+function openSearch(): void {
+  open.value = true;
+  query.value = '';
+  selectedIndex.value = 0;
+}
+function closeSearch(): void {
+  open.value = false;
+}
+function setQuery(q: string): void {
+  query.value = q;
+  selectedIndex.value = 0;
+}
+function moveSelection(delta: number): void {
+  const n = results.value.length;
+  selectedIndex.value = n === 0 ? 0 : (selectedIndex.value + delta + n) % n;
+}
+function setSelection(i: number): void {
+  const n = results.value.length;
+  if (n === 0) {
+    selectedIndex.value = 0;
+    return;
+  }
+  selectedIndex.value = Math.max(0, Math.min(n - 1, i));
+}
+
+export function targetFor(entry: IndexedEntry): string {
+  return entry.headingId ? `/${entry.slug}#${entry.headingId}` : `/${entry.slug}`;
+}
+
+export function useSearch() {
+  return {
+    open,
+    query,
+    selectedIndex,
+    results,
+    openSearch,
+    closeSearch,
+    setQuery,
+    moveSelection,
+    setSelection,
+  };
+}
