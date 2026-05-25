@@ -1,6 +1,6 @@
 # TCM Primer
 
-A reader for a Traditional Chinese Medicine primer — fourteen cross-linked topic essays plus a navigation home page, rendered as a single-page app.
+A reader for a Traditional Chinese Medicine primer — a set of cross-linked markdown topic pages (foundation theory, organ deep-dives, treatment branches) plus a navigation home page, rendered as a single-page app. The canonical page list lives in [`src/scripts/router.ts`](src/scripts/router.ts).
 
 VitePress-style chrome (sidebar nav, scroll-spy outline, prev/next, Cmd+K search) built directly on Vite + Vue 3 — no VitePress, no static-site generator.
 
@@ -19,7 +19,7 @@ VitePress-style chrome (sidebar nav, scroll-spy outline, prev/next, Cmd+K search
 ```bash
 vp install        # install dependencies
 vp dev            # dev server (HMR on .md changes)
-vp build          # production build (15 code-split route chunks)
+vp build          # production build (one chunk per route + lazy-loaded Mermaid)
 vp check          # format + lint + type check
 vp check --fix    # apply formatter fixes
 ```
@@ -28,31 +28,23 @@ vp check --fix    # apply formatter fixes
 
 ```
 src/
-  components/
-    App.vue            root: skip-link + AppHeader + RouterView + AppFooter + SearchModal
-    AppHeader.vue      sticky top bar: brand, mobile-nav Dialog trigger, SearchTrigger
-    AppFooter.vue
-    PageLayout.vue     auto-injected per page: 3-column grid (sidebar | prose+inline prev/next | outline); provides the article ref to PageNav
-    AppNav.vue
-    PageNav.vue        right-side TOC with IntersectionObserver scroll-spy (injects the article ref)
-    SearchModal.vue    Cmd+K dialog (Reka DialogRoot/Portal/Overlay/Content)
-    SearchTrigger.vue  header search button with ⌘K / Ctrl K hint
-  pages/               Markdown content, one file per route
-    index.md           home (table of contents + Three Treasures + Five Branches + pinyin glossary + 5-vs-6 Zang reconciliation)
-    YinYang.md, WuXing.md, Qi.md, ... (14 topics)
-    NotFound.md        rendered by the catch-all route (`/:pathMatch(.*)*`); not in the sidebar
-  scripts/
-    main.ts            Vite entry — registers PageLayout globally, mounts app to #app
-    router.ts          routes + sidebar manifest + nav helpers (single source of truth)
-    search.ts          fuzzysort index + useSearch() composable (Cmd+K UI state, module-scoped singleton, returns refs)
-    markdown.ts        mdLinkRewriter (.md → SPA route) + mdTableWrapper (.table-wrap div)
-    utils.ts           slugify (shared by markdown-it-anchor, the link rewriter, and the search index) + prefersReducedMotion
-  styles/
-    main.css           entry: imports tailwindcss + @plugin '@tailwindcss/typography' + the three split files below
-    theme.css          @theme color tokens (`--color-*: initial` palette wipe + custom primary/gray/red/orange/.../magenta scales)
-    components.css     rules assigned to the components layer via `@import './components.css' layer(components)` in main.css (e.g. `.prose .table-wrap`)
-    utilities.css      @utility nav-link / outline-link / eyebrow
-shims.d.ts             TS shims for *.vue and *.md modules (repo root, included via tsconfig)
+  components/   Vue components — outer shell, sticky chrome (header + sidebar nav),
+                auto-injected doc layout, right-side outline, inline search UI,
+                theme controls. Roles described in "How content is wired" below.
+  pages/        Markdown content, one file per route. The sidebar manifest in
+                src/scripts/router.ts is the canonical list of which pages exist
+                and how they're grouped (theory, organ deep-dives, treatment,
+                plus index.md and a NotFound catch-all).
+  scripts/      main.ts (Vite entry), router.ts (single source of truth for
+                routes + sidebar), search.ts (fuzzysort index + Cmd+K state),
+                markdown.ts (markdown-it plugins: SPA link rewriter, table
+                wrapper, mermaid fence), mermaid.ts (lazy runtime + theme-aware
+                re-render), theme.ts + reading.ts (small composables for
+                persisted UI prefs), utils.ts (slugify + reduced-motion).
+  styles/       main.css imports tailwind + typography + theme.css (tokens) +
+                components.css (.prose .table-wrap, pre.mermaid) +
+                utilities.css (@utility nav-link / outline-link / eyebrow / …).
+shims.d.ts      TS shims for *.vue and *.md modules (repo root, in tsconfig).
 ```
 
 ## How content is wired
@@ -62,7 +54,7 @@ shims.d.ts             TS shims for *.vue and *.md modules (repo root, included 
 3. **Cross-links** between `.md` files use the natural form `[Display](OtherFile.md)`. At build time, `mdLinkRewriter` (in `src/scripts/markdown.ts`) rewrites them to SPA routes (`/OtherFile`). Hashes are preserved: `[Display](OtherFile.md#sub-heading)` → `/OtherFile#sub-heading`. As a special case, `index.md` rewrites to `/` (not `/index`) so links to home-page anchors work.
 4. **Every page** is auto-wrapped in `PageLayout` (configured in `vite.config.ts` via `Markdown({ wrapperComponent: 'PageLayout' })`). The layout supplies sidebar nav, the prose container, the right-side outline, and an inline prev/next nav below the article.
 5. **Heading IDs** are kebab-cased by the shared `slugify` helper in `src/scripts/utils.ts` so URL fragments are predictable: `## Reading the Taijitu` → `id="reading-the-taijitu"`. The search index uses the same function, guaranteeing that result links land on the right anchor.
-6. **Search.** All search logic lives in `src/scripts/search.ts`. On module load it parses every page's raw markdown into one entry per H1/H2/H3 section, strips to plaintext, and pre-prepares the heading + body strings for `fuzzysort`. The same file owns the modal's open / query / selectedIndex state and exposes a `results` computed (body matches are penalized so heading hits rank first) via `useSearch()`. `SearchModal.vue` (Reka `DialogRoot`) is mounted globally in `App.vue`; the `⌘K` / `Ctrl+K` shortcut is bound on `window` from there.
+6. **Search.** All search logic lives in `src/scripts/search.ts`. On module load it parses every page's raw markdown into one entry per H1/H2/H3 section, strips to plaintext, and pre-prepares the heading + body strings for `fuzzysort`. The same file owns the open / query / selectedIndex state and exposes a `results` computed (body matches are penalized so heading hits rank first) via `useSearch()`. The search UI lives inline in the header (desktop bar at ≥sm, magnifier-triggered full-width overlay at <sm); both share a results pane and the `⌘K` / `Ctrl+K` shortcut. Heading IDs come from the same `slugify` as `markdown-it-anchor`, so result links land on the right anchor.
 
 ## Adding a new topic
 
@@ -81,4 +73,12 @@ Route, sidebar entry, page outline, prev/next, and search index are picked up au
 - **Cross-links:** always use the `[Display](File.md)` form. Never hardcode `/File` in source markdown — the rewriter is what makes it refactor-safe. For links to the home page, use `[Display](index.md)` or `[Display](index.md#anchor)`.
 - **Headings:** first line is the page's `# H1`. The right-side outline shows `h2` and `h3` only.
 - **No frontmatter required.** Titles come from the sidebar manifest; the on-page H1 stands alone.
-- **No code highlighting wired up** (Shiki etc.) — the TCM content has none.
+- **No code highlighting wired up** (Shiki etc.) — the TCM content has none. Mermaid diagrams in ` ```mermaid ` fences are rendered separately via `src/scripts/mermaid.ts`.
+
+## AI-assisted origin
+
+The TCM text under `src/pages/` was generated with AI assistance as a synthesis of publicly available TCM material and edited for consistency. Treat it as a study aid, not a primary source.
+
+## Deployment
+
+Deployed to Azure Static Web Apps via the GitHub Actions workflow in `.github/workflows/azure-static-web-apps.yml`. SPA routing + headers live in `public/staticwebapp.config.json`. The one-time Azure-side setup (creating the resource, capturing the deployment token, first deploy) is in [`deploy.md`](./deploy.md).

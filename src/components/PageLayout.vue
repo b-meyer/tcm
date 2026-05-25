@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, provide, useTemplateRef } from 'vue';
+import { computed, nextTick, onMounted, provide, useTemplateRef, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import AppNav from '@/components/AppNav.vue';
 import PageNav from '@/components/PageNav.vue';
+import { runMermaid } from '@/scripts/mermaid';
 import { neighbors, slugFromPath } from '@/scripts/router';
 
 const route = useRoute();
@@ -10,15 +11,23 @@ const pair = computed(() => neighbors(slugFromPath(route.path)));
 
 const articleEl = useTemplateRef<HTMLElement>('articleEl');
 provide('article-el', articleEl);
+
+async function renderDiagrams(): Promise<void> {
+  await nextTick();
+  if (articleEl.value) await runMermaid(articleEl.value);
+}
+
+onMounted(renderDiagrams);
+watch(() => route.path, renderDiagrams);
 </script>
 
 <template>
   <div
-    class="mx-auto grid w-full max-w-[1440px] gap-6 px-8 py-12 md:grid-cols-[220px_minmax(0,1fr)] md:gap-8 xl:grid-cols-[220px_minmax(0,1fr)_200px]"
+    class="mx-auto grid w-full max-w-[1440px] gap-6 px-8 pb-12 md:grid-cols-[220px_minmax(0,1fr)] md:gap-8 xl:grid-cols-[220px_minmax(0,1fr)_200px] *:py-12"
   >
     <aside class="hidden md:block">
       <div
-        class="sticky top-[var(--header-h,4rem)] max-h-[calc(100vh-var(--header-h,4rem))] overflow-y-auto pr-2"
+        class="scrollbar sticky top-[calc(var(--header-h,4rem)+3rem)] max-h-[calc(100vh-var(--header-h,4rem)-3rem)] overflow-y-auto pr-2"
       >
         <AppNav />
       </div>
@@ -58,7 +67,7 @@ provide('article-el', articleEl);
     </div>
     <aside class="hidden xl:block">
       <div
-        class="sticky top-[var(--header-h,4rem)] max-h-[calc(100vh-var(--header-h,4rem))] overflow-y-auto pl-2"
+        class="scrollbar sticky top-[calc(var(--header-h,4rem)+3rem)] max-h-[calc(100vh-var(--header-h,4rem)-3rem)] overflow-y-auto pl-2"
       >
         <PageNav />
       </div>

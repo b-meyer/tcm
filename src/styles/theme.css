@@ -3,7 +3,7 @@
 :root {
   --brand-hue: 210; /* 0–360, the site's identity hue */
   --brand-intensity: 0.5; /* 0=subdued, 0.5=default, 1=vivid — drives both sats below */
-  --brand-primary-sat: calc((30 + var(--brand-intensity) * 40) * 1%);
+  --brand-primary-sat: calc((20 + var(--brand-intensity) * 40) * 1%);
   --brand-gray-sat: calc((5 + var(--brand-intensity) * 10) * 1%);
 }
 

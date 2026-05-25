@@ -21,11 +21,11 @@ The distinction is clinically practical: _Jin_ deficiency shows up quickly (thir
 
 Fluid metabolism is a four-organ collaboration with the San Jiao as the connecting pathway:
 
-```
-[Food/Drink] -> Spleen (extracts pure fluid) -> Lung (disperses upward + outward)
-                                                          |
-                                                          v
-                                          Kidney (filters, recycles, expels via Bladder)
+```mermaid
+flowchart TD
+  Food[Food / Drink] --> Spleen[Spleen<br/>extracts pure fluid]
+  Spleen --> Lung[Lung<br/>disperses upward + outward]
+  Lung --> Kidney[Kidney<br/>filters, recycles, expels via Bladder]
 ```
 
 - **Spleen** is the central engine: it separates clean fluid from food residue and lifts it upward to the Lung.

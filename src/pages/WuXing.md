@@ -58,6 +58,11 @@ Also known as the **Mother-Son relationship**, this is a cycle of nourishment an
 - Metal enriches and condenses Water.
 - Water nourishes plants to grow Wood.
 
+```mermaid
+flowchart LR
+  Wood --> Fire --> Earth --> Metal --> Water --> Wood
+```
+
 **Clinical application.** If a patient has weak Heart energy (Fire), a TCM practitioner might look to treat the Liver (Wood) — the "mother" organ — to help feed and strengthen the Heart.
 
 ### The Controlling Cycle (Ke)
@@ -69,6 +74,15 @@ Also known as the **Grandparent-Grandchild relationship**, this is a system of c
 - Water extinguishes Fire.
 - Fire melts and shapes Metal.
 - Metal (an axe) chops Wood.
+
+```mermaid
+flowchart LR
+  Wood -.->|controls| Earth
+  Earth -.->|controls| Water
+  Water -.->|controls| Fire
+  Fire -.->|controls| Metal
+  Metal -.->|controls| Wood
+```
 
 **Clinical application.** If Wood becomes hyperactive, it can over-control and crush Earth. Severe emotional stress or anger (Liver/Wood) often directly attacks digestion (Spleen/Stomach/Earth), leading to stress-induced ulcers or IBS.
 

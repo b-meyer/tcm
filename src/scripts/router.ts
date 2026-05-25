@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { prefersReducedMotion } from '@/scripts/utils';
 
 export type SidebarItem = { slug: string; title: string };
-export type SidebarGroup = { group: string; items: SidebarItem[] };
+export type SidebarGroup = { group: string; items: SidebarItem[]; extra?: boolean };
 
 export const home: SidebarItem = { slug: 'index', title: 'Home' };
 
@@ -10,7 +10,7 @@ export const sidebar: SidebarGroup[] = [
   {
     group: 'Foundation',
     items: [
-      { slug: 'YinYang', title: 'Yin & Yang' },
+      { slug: 'YinYang', title: 'Yin & Yang (Dao)' },
       { slug: 'WuXing', title: 'Wu Xing (Five Phases)' },
     ],
   },
@@ -25,14 +25,16 @@ export const sidebar: SidebarGroup[] = [
     ],
   },
   {
-    group: 'Synthesis & Anatomy',
+    group: 'Synthesis & Practice',
     items: [
       { slug: 'ZangFu', title: 'Zang-Fu (Organs)' },
       { slug: 'Jingmai', title: 'Jingmai (Meridians)' },
+      { slug: 'Qigong', title: 'Qigong (Energy Work)' },
     ],
   },
   {
     group: 'Causes of Disease',
+    extra: true,
     items: [
       { slug: 'LiuYin', title: 'Liu Yin (Six Pathogens)' },
       { slug: 'QiQing', title: 'Qi Qing (Seven Emotions)' },
@@ -40,18 +42,53 @@ export const sidebar: SidebarGroup[] = [
   },
   {
     group: 'Diagnostic Apparatus',
+    extra: true,
     items: [
       { slug: 'BaGang', title: 'Ba Gang (Eight Principles)' },
       { slug: 'SiZhen', title: 'Si Zhen (Four Examinations)' },
     ],
   },
   {
-    group: 'Practice',
-    items: [{ slug: 'Qigong', title: 'Qigong' }],
+    group: 'Treatment',
+    extra: true,
+    items: [
+      { slug: 'Acupuncture', title: 'Acupuncture & Moxibustion' },
+      { slug: 'Herbs', title: 'Herbal Medicine' },
+      { slug: 'TuiNa', title: 'Tui Na (Massage)' },
+      { slug: 'Dietary', title: 'Dietary Therapy' },
+    ],
+  },
+  {
+    group: 'Zang-Fu Organs',
+    extra: true,
+    items: [
+      { slug: 'Liver', title: 'Liver (Gan)' },
+      { slug: 'Gallbladder', title: 'Gallbladder (Dan)' },
+      { slug: 'Heart', title: 'Heart (Xin)' },
+      { slug: 'SmallIntestine', title: 'Small Intestine' },
+      { slug: 'Pericardium', title: 'Pericardium (Xin Bao)' },
+      { slug: 'SanJiao', title: 'San Jiao (Triple Burner)' },
+      { slug: 'Spleen', title: 'Spleen (Pi)' },
+      { slug: 'Stomach', title: 'Stomach (Wei)' },
+      { slug: 'Lung', title: 'Lung (Fei)' },
+      { slug: 'LargeIntestine', title: 'Large Intestine' },
+      { slug: 'Kidney', title: 'Kidney (Shen)' },
+      { slug: 'Bladder', title: 'Bladder (Pang Guang)' },
+    ],
   },
 ];
 
-export const flatOrder: SidebarItem[] = [home, ...sidebar.flatMap((g) => g.items)];
+// Linear reading order for prev/next — excludes `extra: true` groups so
+// "Additional Reading" pages sit outside the sequence (still routable, still
+// cross-linkable, still searchable, just not in the chain).
+export const flatOrder: SidebarItem[] = [
+  home,
+  ...sidebar.filter((g) => !g.extra).flatMap((g) => g.items),
+];
+
+// Every routable page (core + extra). Used for route generation and search
+// title lookup.
+export const allItems: SidebarItem[] = [home, ...sidebar.flatMap((g) => g.items)];
 
 export function slugFromPath(path: string): string {
   if (path === '/' || path === '') return 'index';
@@ -75,7 +112,7 @@ export function neighbors(currentSlug: string): {
 
 const pages = import.meta.glob('../pages/*.md');
 
-for (const item of flatOrder) {
+for (const item of allItems) {
   if (!pages[`../pages/${item.slug}.md`]) {
     throw new Error(`router.ts: no markdown file for sidebar slug "${item.slug}"`);
   }
@@ -85,7 +122,7 @@ if (!notFound) {
   throw new Error('router.ts: src/pages/NotFound.md is required for the catch-all route');
 }
 
-const routes: RouteRecordRaw[] = flatOrder.map((item) => ({
+const routes: RouteRecordRaw[] = allItems.map((item) => ({
   path: item.slug === 'index' ? '/' : `/${item.slug}`,
   component: pages[`../pages/${item.slug}.md`]!,
 }));

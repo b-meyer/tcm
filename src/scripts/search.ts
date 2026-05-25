@@ -1,6 +1,6 @@
 import fuzzysort from 'fuzzysort';
 import { computed, ref } from 'vue';
-import { flatOrder } from '@/scripts/router';
+import { allItems } from '@/scripts/router';
 import { slugify } from '@/scripts/utils';
 
 // ---- Index types ----
@@ -24,6 +24,10 @@ export type SearchResult = Fuzzysort.KeysResult<IndexedEntry>;
 // ---- Index build (eager, runs at module load) ----
 
 const HEADING_RE = /^(#{1,3})\s+(.+)$/u;
+// Sections whose heading matches this regex are excluded from the search
+// index. "See also" sections are link bullets, not content — they were
+// surfacing as body-only fuzzy matches on common query terms.
+const SKIP_HEADING_RE = /^see also$/iu;
 
 function stripMarkdown(s: string): string {
   return s
@@ -53,7 +57,9 @@ function parseSections(source: string): RawSection[] {
       if (current) sections.push(current);
       const level = m[1]!.length as 1 | 2 | 3;
       current = { level, heading: m[2]!.trim(), bodyLines: [] };
-    } else if (current) {
+    } else if (current && !inCode) {
+      // Skip lines inside code fences so mermaid sources don't pollute the
+      // search index / excerpts (was indexing `graph LR`, node labels, etc.).
       current.bodyLines.push(line);
     }
   }
@@ -86,7 +92,7 @@ function uniqueSlug(base: string, seen: Set<string>): string {
 }
 
 function buildEntries(): SearchEntry[] {
-  const titleBySlug = new Map(flatOrder.map((i) => [i.slug, i.title]));
+  const titleBySlug = new Map(allItems.map((i) => [i.slug, i.title]));
   const entries: SearchEntry[] = [];
   for (const [path, source] of Object.entries(raw)) {
     const slug = path.replace(/^.*\/([^/]+)\.md$/u, '$1');
@@ -95,6 +101,7 @@ function buildEntries(): SearchEntry[] {
     const seen = new Set<string>();
     let added = 0;
     for (const sec of parseSections(source)) {
+      if (SKIP_HEADING_RE.test(sec.heading)) continue;
       const fullId = uniqueSlug(slugify(sec.heading), seen);
       entries.push({
         slug,
@@ -125,15 +132,16 @@ const index: IndexedEntry[] = buildEntries().map((e) => prepare(e));
 
 // ---- Search ----
 
-const BODY_PENALTY = 0.2;
-const SCORE_THRESHOLD = 0.2;
-const RESULT_LIMIT = 20;
+const BODY_WEIGHT = 0.6;
+const SCORE_THRESHOLD = 0.3;
+const RESULT_LIMIT = 10;
 
 function scoreFn(r: Fuzzysort.KeysResult<IndexedEntry>): number {
   // r[0] / r[1] mirror the `keys: ['headingTarget', 'bodyTarget']` order below.
-  const headingScore = r[0] ? r[0].score : 0;
-  const bodyScore = r[1] ? Math.max(0, r[1].score - BODY_PENALTY) : 0;
-  return Math.max(headingScore, bodyScore);
+  // Body matches count as BODY_WEIGHT of a same-numerical heading match.
+  const heading = r[0] ? r[0].score : 0;
+  const body = r[1] ? r[1].score * BODY_WEIGHT : 0;
+  return Math.max(heading, body);
 }
 
 function searchFor(q: string): readonly SearchResult[] {

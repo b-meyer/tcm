@@ -2,11 +2,11 @@
 
 ## Overview
 
-In Traditional Chinese Medicine (TCM), Yin and Yang is not merely a philosophical metaphor — it is the foundation of physiology, pathology, diagnosis, and treatment. Codified thousands of years ago in _The Yellow Emperor's Inner Classic_ (Huangdi Neijing), the theory asserts that all life and health are governed by a dynamic balance of two opposing, complementary forces.
+Yin and Yang is the **first articulation of the Dao** — the first polarity to emerge from undifferentiated wholeness. The _Daodejing_ compresses this cosmology in chapter 42: _"Dao gives birth to One, One to Two, Two to Three, Three to the ten thousand things."_ Yin and Yang are the Two. Every later concept in this primer is connected in this chain back to the one.
 
-## Origins
+Codified into medicine by _The Yellow Emperor's Inner Classic_ (Huangdi Neijing), Yin and Yang becomes the foundation of physiology, pathology, diagnosis, and treatment. The therapeutic logic rests on three Daoist concepts: every body has a natural grain — _ziran_ — that the practitioner reads rather than overrides; the practitioner's posture is _wu wei_, effortless action along that grain rather than against it; and the body carries its own _de_, the intrinsic potency to heal once obstacles are removed. Diagnosis names which pole has drifted; treatment corrects the relationship.
 
-The yin/yang pairing first appears on Shang-era oracle bones as descriptions of natural contrasts (shadow vs sunlight), enters the _Yi Jing_ hexagram grammar during the Zhou period, becomes a universal principle through the Warring States _Yinyang jia_ (Naturalist school), and is canonized into medicine by the _Huangdi Neijing_ (c. 300 BCE – 200 CE). Daoism deepened the framework but did not invent it. See the [primer index](index.md) for the Neijing's broader scope.
+Yin/yang has older usages — Shang-era oracle bones, _Yi Jing_ hexagrams — but the Warring States _Yinyang jia_ (Naturalist school) systematized it as a universal principle, which the Daodejing later turned into cosmology and the Neijing into medicine. The [primer index](index.md) covers the Neijing's broader scope.
 
 ## Reading the Taijitu
 
@@ -30,6 +30,14 @@ Yin and Yang interact in four fundamental ways:
 - **Interdependence.** One cannot exist without the other. "Cold" (Yin) is undefinable without a concept of "warmth" (Yang). In the body, Yang (functional activity) relies on Yin (physical substance) for fuel.
 - **Mutual consumption.** They are in constant flux, adjusting to keep each other in check. During exercise, Yang energy rises and consumes Yin fluids (sweat).
 - **Inter-transformation.** At extreme poles, one turns into the other. Winter (extreme Yin) gives way to spring (growing Yang). An acute high fever (extreme Yang) can collapse into exhaustion and a cold drop in temperature (Yin collapse).
+
+```mermaid
+flowchart LR
+  Op[Opposition] --- YY((Yin ↔ Yang)) --- Inter[Interdependence]
+  Cons[Mutual consumption] --- YY --- Trans[Inter-transformation]
+```
+
+These four relationships are the grammar TCM uses to read the body: every diagnosis below names which one has drifted, and every treatment names how it is being restored.
 
 ## In human anatomy and physiology
 
@@ -71,7 +79,7 @@ Yang energy is depleted, leaving the body without the vital fire to warm itself 
 
 ## Yin and Yang in time
 
-TCM treats time as Yin and Yang in motion; the day has an energetic texture that should shape behavior. The four daily phases echo the seasons within a single rotation:
+TCM treats time as Yin and Yang in motion; the day has an energetic texture that should shape behavior — _ziran_ applied to the clock. The four daily phases echo the seasons within a single rotation:
 
 | Time window     | Yin-Yang quality           | Prescription                           |
 | --------------- | -------------------------- | -------------------------------------- |

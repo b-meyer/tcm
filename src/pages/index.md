@@ -4,11 +4,11 @@ A structured introduction to the foundational theory of Traditional Chinese Medi
 
 Audience: the curious newcomer, the practitioner-adjacent student, or anyone who has met TCM through acupuncture, herbs, or Tai Chi and wants the underlying framework laid out plainly.
 
-This is an educational primer — not a clinical manual, prescription guide, or diagnostic reference. No file provides herb dosages or treatment recipes; every claim is framed _within_ the TCM model. The collection uses **moderate DRY**: shared concepts get a brief framing in each topic file with a link back to this README for the canonical statement. Read the README first, then the topic files in order.
+This is an educational primer — not a clinical manual, prescription guide, or diagnostic reference. No file provides herb dosages or treatment recipes; every claim is framed _within_ the TCM model. **The text was generated with AI assistance** as a synthesis of publicly available TCM material and edited for consistency — treat it as a study aid, not a primary source. Read the README first, then the topic files in order.
 
 ## How to read this collection
 
-The fourteen topic files build on each other. Read in order, they walk from abstract principle through substances and pathology to the diagnostic apparatus and finally daily practice:
+Ten core topic files form the main progression. Read in order, they walk from abstract principle through substances and anatomy to daily practice:
 
 1. **[YinYang.md](YinYang.md)** — the foundational dualism every later concept inherits from.
 2. **[WuXing.md](WuXing.md)** — the Five Phases, extending Yin/Yang into an ecology of correspondences.
@@ -17,36 +17,52 @@ The fourteen topic files build on each other. Read in order, they walk from abst
 5. **[Shen.md](Shen.md)** (Spirit) — consciousness, dreams, the Five Shen; Treasure 3.
 6. **[Xue.md](Xue.md)** (Blood) — Qi's material partner; closes the substances trio.
 7. **[JinYe.md](JinYe.md)** (Body Fluids) — the fifth substance; hydration, lubrication, Phlegm and Damp pathology.
-8. **[ZangFu.md](ZangFu.md)** — the organ-system synthesis where the prior frameworks combine.
+8. **[ZangFu.md](ZangFu.md)** — the practical synthesis of substances and frameworks into organ systems; the bridge into the meridian and practice arc. Launch point for the 12 organ deep-dives in Additional Reading.
 9. **[Jingmai.md](Jingmai.md)** (Meridians) — the pathway network connecting organs to the body's surface.
-10. **[LiuYin.md](LiuYin.md)** (Six External Pathogens) — Wind, Cold, Heat, Damp, Dryness, Summer-Heat; exogenous causes of disease.
-11. **[QiQing.md](QiQing.md)** (Seven Emotions) — Joy, Anger, Pensiveness, Worry, Grief, Fear, Fright; endogenous causes of disease.
-12. **[BaGang.md](BaGang.md)** (Eight Principles) — the foundational diagnostic framework: Yin/Yang, Interior/Exterior, Cold/Heat, Excess/Deficiency.
-13. **[SiZhen.md](SiZhen.md)** (Four Examinations) — Looking, Listening/Smelling, Asking, Palpation; the diagnostic method.
-14. **[Qigong.md](Qigong.md)** — self-cultivation; the bridge from theory to daily practice.
+10. **[Qigong.md](Qigong.md)** — self-cultivation; the bridge from theory to daily practice.
 
-## The conceptual map
+### Additional reading
 
-The files build on each other in a clear dependency:
+These files sit alongside the core progression — cross-linked from it but outside the linear sequence. Read them when the core text references them, or as standalone reference once the foundation is in place.
 
-| Layer                | File                     | Builds on                     |
-| -------------------- | ------------------------ | ----------------------------- |
-| Foundation           | [YinYang.md](YinYang.md) | —                             |
-| Framework            | [WuXing.md](WuXing.md)   | YinYang                       |
-| Substance            | [Qi.md](Qi.md)           | YinYang                       |
-| Substance            | [Jing.md](Jing.md)       | Qi, YinYang                   |
-| Substance            | [Xue.md](Xue.md)         | Qi                            |
-| Substance            | [Shen.md](Shen.md)       | Jing, Qi, Xue                 |
-| Substance            | [JinYe.md](JinYe.md)     | Qi                            |
-| Synthesis            | [ZangFu.md](ZangFu.md)   | WuXing, all substances        |
-| Anatomy              | [Jingmai.md](Jingmai.md) | Qi, ZangFu                    |
-| Cause — external     | [LiuYin.md](LiuYin.md)   | Qi, JinYe, ZangFu             |
-| Cause — internal     | [QiQing.md](QiQing.md)   | Shen, WuXing, ZangFu          |
-| Diagnostic framework | [BaGang.md](BaGang.md)   | YinYang, ZangFu, LiuYin       |
-| Diagnostic method    | [SiZhen.md](SiZhen.md)   | Xue, Qi, Shen, ZangFu, BaGang |
-| Practice             | [Qigong.md](Qigong.md)   | all of the above              |
+**Causes of disease:**
 
-Foundation files have no prerequisites; later layers assume the earlier ones. A reader who skips the foundation will find later material harder to internalize but not impenetrable.
+- **[LiuYin.md](LiuYin.md)** (Six External Pathogens) — Wind, Cold, Heat, Damp, Dryness, Summer-Heat; exogenous causes.
+- **[QiQing.md](QiQing.md)** (Seven Emotions) — Joy, Anger, Pensiveness, Worry, Grief, Fear, Fright; endogenous causes.
+
+**Diagnostic apparatus:**
+
+- **[BaGang.md](BaGang.md)** (Eight Principles) — the foundational diagnostic framework: Yin/Yang, Interior/Exterior, Cold/Heat, Excess/Deficiency.
+- **[SiZhen.md](SiZhen.md)** (Four Examinations) — Looking, Listening/Smelling, Asking, Palpation; the diagnostic method.
+
+**Treatment** — four of the Five Branches of TCM Treatment as standalone pages (the fifth, [Qigong.md](Qigong.md), lives in the core chain):
+
+- **[Acupuncture.md](Acupuncture.md)** — needles and moxibustion; acupoints along the meridian network.
+- **[Herbs.md](Herbs.md)** — herbal formulas, classified by temperature, flavor, channel, and direction.
+- **[TuiNa.md](TuiNa.md)** — therapeutic massage along the meridian pathways.
+- **[Dietary.md](Dietary.md)** — food prescribed by constitution and pattern.
+
+**Zang-Fu organ deep-dives.** One page per channel-system organ — the [ZangFu.md](ZangFu.md) synthesis page is the launch point. Grouped by Five Phases:
+
+- **Wood:** [Liver.md](Liver.md), [Gallbladder.md](Gallbladder.md)
+- **Fire:** [Heart.md](Heart.md), [SmallIntestine.md](SmallIntestine.md), [Pericardium.md](Pericardium.md), [SanJiao.md](SanJiao.md)
+- **Earth:** [Spleen.md](Spleen.md), [Stomach.md](Stomach.md)
+- **Metal:** [Lung.md](Lung.md), [LargeIntestine.md](LargeIntestine.md)
+- **Water:** [Kidney.md](Kidney.md), [Bladder.md](Bladder.md)
+
+### The conceptual map
+
+Each layer assumes the ones above it:
+
+| Layer                | Pages                              | Builds on              |
+| -------------------- | ---------------------------------- | ---------------------- |
+| Foundation           | YinYang, WuXing                    | —                      |
+| Substances           | Qi, Jing, Shen, Xue, JinYe         | Foundation             |
+| Synthesis & Practice | ZangFu, Jingmai, Qigong            | Foundation, Substances |
+| Organ deep-dives     | the 12 organ pages                 | Synthesis              |
+| Causes of disease    | LiuYin, QiQing                     | Substances, Synthesis  |
+| Diagnostic apparatus | BaGang, SiZhen                     | Foundation, Synthesis  |
+| Treatment            | Acupuncture, Herbs, TuiNa, Dietary | Synthesis, Diagnostic  |
 
 ## The Three Treasures (San Bao)
 
@@ -105,7 +121,7 @@ Terms that recur across files. Each links to its canonical home.
 
 **Recurring concepts:**
 
-- **Dantian** — three energy reservoirs (lower/middle/upper); the Lower Dantian below the navel anchors [Qigong](Qigong.md).
+- **Dantian** — three energy reservoirs (lower/middle/upper) along the body's central axis; see [Jingmai](Jingmai.md#the-dantians).
 - **Wei Qi / Ying Qi** — Defensive Qi (skin-level immunity) vs Nutritive Qi (flows with the Blood); see [Qi.md](Qi.md).
 - **Ming Men** — "Gate of Life," the constitutional fire between the Kidneys; sources the body's foundational Yang ([Jing.md](Jing.md)).
 - **Tian Gui** — reproductive essence; arrives at puberty and depletes through the 7/8-year life cycles ([Jing.md](Jing.md)).
@@ -156,7 +172,7 @@ The _Huangdi Neijing_ (_Yellow Emperor's Inner Classic_) is the canonical text b
 | Meridians / acupoints    |         |        |  •  |      |  •   |  •  |       |   •    |    ★    |        |        |        |   •    |   •    |
 | Organ Clock              |         |        |  •  |      |      |     |       |   •    |    ★    |        |        |        |        |        |
 | Hun & Po (sub-spirits)   |         |        |     |      |  ★   |     |       |   •    |         |        |   •    |        |        |        |
-| Dantian                  |         |        |     |      |      |     |       |        |         |        |        |        |        |   ★    |
+| Dantian                  |         |        |     |      |      |     |       |        |    ★    |        |        |        |        |   •    |
 | External pathogens       |         |        |  •  |      |      |     |   •   |   •    |         |   ★    |        |   •    |        |        |
 | Emotional causation      |         |   •    |     |      |  •   |     |       |   •    |         |        |   ★    |        |   •    |        |
 | Eight Principles         |    •    |        |     |      |      |     |       |   •    |         |   •    |        |   ★    |   •    |        |
@@ -168,6 +184,7 @@ The _Huangdi Neijing_ (_Yellow Emperor's Inner Classic_) is the canonical text b
 
 - **Hedged framing.** Every claim is "in TCM…" rather than biomedical assertion. Overlap with biomedicine is noted; divergence too.
 - **Western analogies.** Abstract concepts anchored in familiar imagery — candle/flame/light, rivers/lakes, engine/pump — without overclaiming equivalence.
+- **Moderate DRY.** Shared concepts get a brief framing in each topic file with a link back to this README for the canonical statement.
 - **Cross-link discipline.** First reference to a sibling file uses `[File.md](File.md)`; repeats within the same file drop the link.
 - **File naming.** Filenames are pinyin; each H1 shows English alongside (e.g., `# Jingmai — Meridians`).
 - **Deliberately absent.** No clinical dosages, diagnostic algorithms, emoji, or sources beyond the Neijing pointer.

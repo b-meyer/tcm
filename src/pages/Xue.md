@@ -8,10 +8,12 @@ In Traditional Chinese Medicine, **Xue** (pronounced _shway_, often translated a
 
 Xue is manufactured collaboratively by several Zang-Fu organs:
 
-```
-[Food/Drink] -> Spleen (extracts Gu Qi) -> Lungs (adds clear air) -> Heart (transforms into Xue)
-                                                                              ^
-                                                              Kidneys (contribute Jing/Marrow)
+```mermaid
+flowchart LR
+  Food[Food / Drink] --> Spleen[Spleen<br/>extracts Gu Qi]
+  Spleen --> Lungs[Lungs<br/>add clear air]
+  Lungs --> Heart[Heart<br/>transforms into Xue]
+  Kidneys[Kidneys<br/>contribute Jing / Marrow] --> Heart
 ```
 
 The Spleen extracts **Gu Qi** from food; the Lungs combine it with inhaled air; the Heart's catalytic Fire transforms the mixture into red Xue. The Kidneys contribute Jing and marrow — and because Jing can transform into Xue (and vice versa), robust Kidney health underwrites high-quality Blood.

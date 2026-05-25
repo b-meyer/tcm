@@ -8,7 +8,15 @@ The word combines **Qi** (vital energy — see [Qi.md](Qi.md)) and **Gong** (ski
 
 ## Qigong as a pillar of TCM
 
-Qigong is the one self-directed branch of the [Five Branches of TCM Treatment](index.md#the-five-branches-of-tcm-treatment) — the others are practitioner-applied. It is preventative medicine in the literal sense: the _Huangdi Neijing_ warns that treating disease after manifestation is like digging a well when already thirsty.
+Qigong stands among the **[Five Branches of TCM Treatment](index.md#the-five-branches-of-tcm-treatment)** — the canonical toolkit a classical practitioner reaches for. The other four are all practitioner-applied, and each has its own page in Additional Reading:
+
+1. **[Acupuncture & Moxibustion](Acupuncture.md)** — needles and warmth at acupoints along the [meridian network](Jingmai.md).
+2. **[Herbal Medicine](Herbs.md)** — formulas built from substances classified by temperature, flavor, and channel.
+3. **[Tui Na](TuiNa.md)** — therapeutic massage along the meridian pathways.
+4. **[Dietary Therapy](Dietary.md)** — food prescribed by constitution and pattern.
+5. **Qigong** — _this page_.
+
+Qigong is the **fifth branch in the canonical listing** — and the **only one the patient owns directly**, practiced on themselves, daily, without a practitioner present. The other four treat what has already manifested; qigong is the work the patient does so that less ever has to manifest. It is preventative medicine in the literal sense: the _Huangdi Neijing_ warns that treating disease after manifestation is like digging a well when already thirsty. Among the five, qigong is what makes TCM as much a philosophy of daily life as a clinical practice.
 
 ## Origins and lineages
 
@@ -35,10 +43,6 @@ TCM dictates that Qi flows through a network of invisible pathways called meridi
 ### The Three Treasures (San Bao)
 
 Qigong aims to harmonize the three fundamental substances of human life — **Jing** (essence, preserved by posture and structural alignment), **Qi** (vital energy, cultivated via breathwork and movement), and **Shen** (spirit, steadied by meditative focus). For the canonical Treasures framing, see the [Three Treasures framing](index.md#the-three-treasures-san-bao).
-
-### The Dantians (energy centers)
-
-Qigong places heavy emphasis on the three **Dantians** — reservoirs where Qi is gathered and stored. The most critical is the **Lower Dantian**, located a few inches below the navel and deep within the abdomen. Deep abdominal breathing acts as a pump, filling this reservoir so that excess energy can overflow and naturally heal the rest of the body.
 
 ### The Three Adjustments (San Tiao)
 

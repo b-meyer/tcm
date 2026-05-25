@@ -12,6 +12,7 @@ import {
   SwitchRoot,
   SwitchThumb,
 } from 'reka-ui';
+import { computed } from 'vue';
 import { useTheme } from '@/scripts/theme';
 
 const { theme, hue, intensity, setTheme, setHue, setIntensity } = useTheme();
@@ -31,8 +32,10 @@ function onIntensityUpdate(v: number[] | undefined): void {
 const hueTrackStyle =
   'background: linear-gradient(to right, hsl(0 65% 50%), hsl(60 65% 50%), hsl(120 65% 50%), hsl(180 65% 50%), hsl(240 65% 50%), hsl(300 65% 50%), hsl(360 65% 50%))';
 
-const intensityTrackStyle =
-  'background: linear-gradient(to right, hsl(210 15% 50%), hsl(210 85% 50%))';
+const intensityTrackStyle = computed(
+  () =>
+    `background: linear-gradient(to right, hsl(${hue.value} 15% 50%), hsl(${hue.value} 85% 50%))`,
+);
 </script>
 
 <template>

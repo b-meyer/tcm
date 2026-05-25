@@ -28,6 +28,20 @@ export function mdLinkRewriter(md: MarkdownIt): void {
   };
 }
 
+export function mdMermaid(md: MarkdownIt): void {
+  const defaultFence =
+    md.renderer.rules.fence ??
+    ((tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options));
+
+  md.renderer.rules.fence = (tokens, idx, options, env, self) => {
+    const token = tokens[idx];
+    if (token?.info.trim() === 'mermaid') {
+      return `<pre class="mermaid not-prose">${md.utils.escapeHtml(token.content)}</pre>`;
+    }
+    return defaultFence(tokens, idx, options, env, self);
+  };
+}
+
 export function mdTableWrapper(md: MarkdownIt): void {
   const defaultOpen =
     md.renderer.rules.table_open ??

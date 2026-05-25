@@ -119,7 +119,7 @@ watch(query, () => {
       <span class="font-medium text-gray-700">"{{ query }}"</span>.
     </div>
     <div v-else class="space-y-3 p-6 text-xs text-gray-600">
-      <p>Search across all 15 topics and their sections.</p>
+      <p>Search across topics and their sections.</p>
       <ul class="space-y-1.5">
         <li>
           <kbd class="rounded border border-gray-300 bg-gray-50 px-1 py-0.5 font-mono">↑</kbd>

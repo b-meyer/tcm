@@ -102,6 +102,17 @@ A practitioner's mental sequence on a new patient:
 5. **Add organ, substance, evil.** Layer in Zang-Fu, Qi-Xue-Jin Ye, Liu Yin specifics.
 6. **Choose treatment principle.** Each pattern combination implies a treatment direction — clear Heat, warm Yang, tonify Qi, move Blood, release the exterior.
 
+```mermaid
+flowchart TD
+  Patient[New patient] --> Gather[Look + Listen + Ask + Tongue + Pulse]
+  Gather --> Depth{Exterior or Interior?}
+  Depth --> Thermal{Cold or Heat?}
+  Thermal --> Strength{Excess or Deficient?}
+  Strength --> Summary[Resolve to Yin or Yang overall]
+  Summary --> Detail[Add organ + substance + pathogen]
+  Detail --> Treatment[Treatment principle]
+```
+
 For the diagnostic methods that gather this data, see [SiZhen.md](SiZhen.md).
 
 ## A worked clinical sketch

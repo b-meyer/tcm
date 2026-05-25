@@ -31,6 +31,24 @@ The backbone of the system consists of 12 primary meridians. They run symmetrica
 | Gallbladder              | Leg       | Yang       | Wood        | 11 PM – 1 AM     | Stores bile, governs decision-making; linked to anger and courage.         |
 | Liver                    | Leg       | Yin        | Wood        | 1 AM – 3 AM      | Smooths Qi flow, detoxes, regulates blood; linked to frustration / anger.  |
 
+The 12 windows form a single closed 24-hour cycle — when one organ's peak ends, the next begins. The cycle restarts at the Lung (3 AM) every dawn:
+
+```mermaid
+flowchart LR
+  LU[Lung<br/>3–5 AM] --> LI[Large Intestine<br/>5–7 AM]
+  LI --> ST[Stomach<br/>7–9 AM]
+  ST --> SP[Spleen<br/>9–11 AM]
+  SP --> HT[Heart<br/>11 AM–1 PM]
+  HT --> SI[Small Intestine<br/>1–3 PM]
+  SI --> BL[Bladder<br/>3–5 PM]
+  BL --> KI[Kidney<br/>5–7 PM]
+  KI --> PC[Pericardium<br/>7–9 PM]
+  PC --> TB[Triple Burner<br/>9–11 PM]
+  TB --> GB[Gallbladder<br/>11 PM–1 AM]
+  GB --> LV[Liver<br/>1–3 AM]
+  LV --> LU
+```
+
 _For the nature of Qi itself and its distinct types (Wei Qi, Ying Qi, Yuan Qi), see [Qi.md](Qi.md). For the underlying Wu Xing phase associations behind these peak times, see [WuXing.md](WuXing.md). For why the meridian system uses 12 channels (6 Zang + 6 Fu) instead of the 5-Zang framework of Wu Xing, see [ZangFu.md](ZangFu.md) and the [5-vs-6 Zang reconciliation](index.md#the-5-vs-6-zang-reconciliation)._
 
 ## Extraordinary Vessels
@@ -49,42 +67,24 @@ Dotted along these meridian pathways are over **361 standard acupuncture points*
 - **Moxibustion.** Burning the herb mugwort (_Ai Ye_) near the skin to warm the meridians and dispel "cold" or stagnation.
 - **Qigong & Tai Chi.** Using specific movements, breathwork, and intention to clear and strengthen the meridian pathways from within.
 
-## Relationship to chakras
+## The Dantians
 
-Meridians and chakras are the world's two most famous maps of the "subtle body." Meridians come from Taoist TCM; chakras from Vedic India (Hinduism and Tantric Buddhism). They are not identical but they cross paths and complement each other — two different maps of the same city.
+TCM recognizes three **Dantians** — reservoirs where [Qi](Qi.md) is gathered and stored, arranged along the body's central axis. Where the 12 primary meridians distribute Qi through the body like rivers, the Dantians concentrate it at three vertical hubs:
 
-### The analogy: rivers vs. lakes
+- **Lower Dantian** — a few inches below the navel, deep within the abdomen, on the acupoint **Qi Hai (Ren 6)** — the "Sea of Energy." Stores physical essence and vital energy; the most critical of the three. Deep abdominal breathing acts as a pump, filling this reservoir so excess energy can overflow and naturally heal the rest of the body.
+- **Middle Dantian** — center of the chest, on **Shan Zhong (Ren 17)**. The seat of Qi cultivation and emotional regulation; benefits the Heart and Lung.
+- **Upper Dantian** — between the eyebrows at **Yin Tang**. Houses the [Shen](Shen.md); cultivated through stillness and meditative focus.
 
-- **Meridians are the rivers.** Linear pathways, channels, and streams that distribute energy (Qi) continuously throughout the entire body, reaching every organ and limb.
-- **Chakras are the lakes/reservoirs.** Concentrated, swirling vortexes of energy (Prana) located along the central axis of the body. Major energetic hubs that process emotional, psychological, and spiritual information.
+### Relationship to chakras
 
-The chakras act like major power stations or reservoirs that feed energy into the rivers (meridians). If a chakra is blocked, the meridians attached to that region will not get enough water. If a meridian is blocked, the water backs up and floods the chakra.
+The Dantians map onto the Vedic chakra system more cleanly than the meridian network does — both traditions describe a vertical column of energy centers along the body's midline, treating them as reservoirs that store and process subtle energy. The three Dantians align directly with three of the seven main chakras, on the same acupoints; the chakra system adds four more centers, each likewise sitting on a major TCM point along the Conception Vessel (Ren Mai) or Governing Vessel (Du Mai):
 
-### Where the maps overlap
-
-**The central axis.** The chakra system's central channel (**Sushumna**) runs straight up the spine — the same line is governed in TCM by the **Governing Vessel (Du Mai)** on the back and **Conception Vessel (Ren Mai)** on the front.
-
-**Direct point connections.** Major chakras sit directly on top of potent meridian acupuncture points — needling these points is essentially treating the chakra's physical counterpart:
-
-| Chakra                  | Location                 | Corresponding major acupoint                                                                                    |
-| ----------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------------- |
-| Crown (Sahasrara)       | Top of the head          | **Bai Hui (DU 20)** — "Hundred Meetings"; clears the mind, lifts sagging energy, connects to the divine.        |
-| Third Eye (Ajna)        | Between the eyebrows     | **Yin Tang** — calms the spirit, alleviates anxiety, induces deep relaxation.                                   |
-| Throat (Vishuddha)      | Base of the throat       | **Ren 22** — used for throat issues, asthma, and helping a person "find their voice."                           |
-| Heart (Anahata)         | Center of the chest      | **Shan Zhong (Ren 17)** — "Chest Center"; benefits lungs and heart; opens the chest during grief.               |
-| Solar Plexus (Manipura) | Upper abdomen            | **Zhong Wan (Ren 12)** — central hub for the Stomach and Spleen; governs digestion and processing.              |
-| Sacral (Svadhisthana)   | Lower abdomen            | **Dan Tian / Qi Hai (Ren 6)** — "Sea of Energy"; primary reservoir of physical essence and vital energy.        |
-| Root (Muladhara)        | Perineum / base of spine | **Hui Yin (Ren 1)** — "Meeting of Yin"; the lowest point of the central torso, grounding energy into the earth. |
-
-### Key differences between the two systems
-
-| Feature        | Meridians (TCM)                                                                   | Chakras (Vedic)                                                            |
-| -------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| Primary energy | **Qi** — vital force, tied to physical blood and fluid movement.                  | **Prana** — life force, tied to breath and consciousness.                  |
-| Structure      | A complex, symmetrical web of hundreds of points and lines across the whole body. | A vertical column of 7 main wheels (though thousands of minor ones exist). |
-| Focus          | Physiological & functional — physical organ health, digestion, pain relief.       | Psycho-spiritual — emotional themes, spiritual evolution, consciousness.   |
-| Primary tools  | Acupuncture, herbs, acupressure, moxibustion.                                     | Meditation, yoga postures (asanas), breathwork (pranayama), mantras.       |
-
-### The modern synthesis: Yin Yoga
-
-To see these two systems married in practice, look no further than **Yin Yoga**. Developed in the late 20th century, Yin Yoga holds passive floor poses for long periods (3 to 5 minutes). The practice targets the deep connective tissues (fascia) where the meridians run, stimulating the flow of Qi to the organs. Practitioners use the stillness to meditate on the chakras along the spine, bridging East Asian and South Asian energetic medicine into one practice.
+| Chakra                  | Location                 | TCM point & context                                                                                       |
+| ----------------------- | ------------------------ | --------------------------------------------------------------------------------------------------------- |
+| Crown (Sahasrara)       | Top of the head          | **Bai Hui (DU 20)** — "Hundred Meetings"; endpoint of the Governing Vessel; clears the mind.              |
+| Third Eye (Ajna)        | Between the eyebrows     | **Yin Tang** — the **Upper Dantian**; calms the spirit, alleviates anxiety.                               |
+| Throat (Vishuddha)      | Base of the throat       | **Ren 22** — Conception Vessel; used for throat issues and helping a person "find their voice."           |
+| Heart (Anahata)         | Center of the chest      | **Shan Zhong (Ren 17)** — the **Middle Dantian**; benefits lungs and heart; opens the chest during grief. |
+| Solar Plexus (Manipura) | Upper abdomen            | **Zhong Wan (Ren 12)** — central hub for the Stomach and Spleen; governs digestion.                       |
+| Sacral (Svadhisthana)   | Lower abdomen            | **Qi Hai (Ren 6)** — the **Lower Dantian**; primary reservoir of physical essence and vital energy.       |
+| Root (Muladhara)        | Perineum / base of spine | **Hui Yin (Ren 1)** — "Meeting of Yin"; lowest point of the central torso, grounds energy into the earth. |

@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import anchor from 'markdown-it-anchor';
 import Markdown from 'unplugin-vue-markdown/vite';
 import { defineConfig } from 'vite-plus';
-import { mdLinkRewriter, mdTableWrapper } from './src/scripts/markdown.ts';
+import { mdLinkRewriter, mdMermaid, mdTableWrapper } from './src/scripts/markdown.ts';
 import { slugify } from './src/scripts/utils.ts';
 
 const IGNORE_PATTERNS: string[] = ['dist', 'node_modules'];
@@ -19,6 +19,7 @@ export default defineConfig({
         md.use(anchor, { permalink: false, slugify });
         md.use(mdLinkRewriter);
         md.use(mdTableWrapper);
+        md.use(mdMermaid);
       },
     }),
     tailwindcss(),

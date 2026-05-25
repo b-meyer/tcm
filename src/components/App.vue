@@ -1,6 +1,13 @@
 <script setup lang="ts">
-import AppFooter from '@/components/AppFooter.vue';
+import { onMounted, onUnmounted } from 'vue';
 import AppHeader from '@/components/AppHeader.vue';
+import { watchColorScheme } from '@/scripts/mermaid';
+
+let disposeColorScheme: (() => void) | undefined;
+onMounted(() => {
+  disposeColorScheme = watchColorScheme();
+});
+onUnmounted(() => disposeColorScheme?.());
 </script>
 
 <template>
@@ -15,6 +22,5 @@ import AppHeader from '@/components/AppHeader.vue';
     <main id="main-content" class="w-full flex-auto">
       <RouterView />
     </main>
-    <AppFooter />
   </div>
 </template>

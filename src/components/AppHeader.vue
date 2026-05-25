@@ -139,7 +139,7 @@ onBeforeUnmount(() => {
             class="fixed inset-0 z-40 bg-black/60 transition-opacity duration-200 data-[state=closed]:opacity-0 data-[state=open]:opacity-100"
           />
           <DialogContent
-            class="fixed top-0 left-0 z-50 h-[100dvh] w-[280px] max-w-[85vw] overflow-y-auto bg-white p-4 shadow-xl transition-transform duration-200 data-[state=closed]:-translate-x-full data-[state=open]:translate-x-0 dark:bg-gray-125"
+            class="scrollbar fixed top-0 left-0 z-50 h-[100dvh] w-[280px] max-w-[85vw] overflow-y-auto bg-white p-4 shadow-xl transition-transform duration-200 data-[state=closed]:-translate-x-full data-[state=open]:translate-x-0 dark:bg-gray-125"
           >
             <DialogTitle class="sr-only">Navigation</DialogTitle>
             <div class="mb-4 flex items-center justify-between">
@@ -156,7 +156,18 @@ onBeforeUnmount(() => {
         </DialogPortal>
       </DialogRoot>
 
-      <RouterLink to="/" class="text-lg font-semibold text-gray-900"> TCM </RouterLink>
+      <RouterLink to="/" class="flex items-center gap-2 text-lg font-semibold text-gray-900">
+        <svg viewBox="-40 -40 80 80" class="size-6 shrink-0" aria-hidden="true">
+          <circle r="39" fill="currentColor" />
+          <path
+            class="fill-white dark:fill-gray-125"
+            d="M0,38a38,38 0 0 1 0,-76a19,19 0 0 1 0,38a19,19 0 0 0 0,38"
+          />
+          <circle r="5" cy="19" class="fill-white dark:fill-gray-125" />
+          <circle r="5" cy="-19" fill="currentColor" />
+        </svg>
+        TCM
+      </RouterLink>
 
       <div
         class="relative hidden max-w-[88ch] sm:ml-auto sm:block sm:flex-auto md:mx-auto md:w-full"
@@ -192,20 +203,21 @@ onBeforeUnmount(() => {
         <SearchResults
           v-show="open"
           id="search-results"
-          class="absolute inset-x-0 top-full z-40 mt-1 max-h-[60vh] overflow-y-auto rounded-md bg-white shadow-lg ring-1 ring-gray-200 dark:bg-gray-125"
+          class="scrollbar absolute inset-x-0 top-full z-40 mt-1 max-h-[60vh] overflow-y-auto rounded-md bg-white shadow-lg ring-1 ring-gray-200 dark:bg-gray-125"
         />
       </div>
 
-      <button
-        type="button"
-        aria-label="Search"
-        class="ml-auto inline-flex size-10 items-center justify-center rounded text-gray-700 hover:bg-primary-50 sm:hidden"
-        @click="openMobileSearch"
-      >
-        <MagnifyingGlassIcon class="size-5" aria-hidden="true" />
-      </button>
-
-      <ThemeToggle class="justify-self-end" />
+      <div class="flex items-center justify-end">
+        <ThemeToggle class="justify-self-end" />
+        <button
+          type="button"
+          aria-label="Search"
+          class="inline-flex size-10 items-center justify-center rounded text-gray-700 hover:bg-primary-50 sm:hidden"
+          @click="openMobileSearch"
+        >
+          <MagnifyingGlassIcon class="size-5" aria-hidden="true" />
+        </button>
+      </div>
     </div>
 
     <div
@@ -253,7 +265,7 @@ onBeforeUnmount(() => {
       </div>
       <SearchResults
         id="mobile-search-results"
-        class="max-h-[calc(100dvh-var(--header-h,4rem))] overflow-y-auto bg-white shadow-lg ring-1 ring-gray-200 dark:bg-gray-125"
+        class="scrollbar max-h-[calc(100dvh-var(--header-h,4rem))] overflow-y-auto bg-white shadow-lg ring-1 ring-gray-200 dark:bg-gray-125"
       />
     </div>
   </header>

@@ -80,6 +80,24 @@ TCM practice relies heavily on the _Huangdi Neijing_ (Yellow Emperor's Inner Cla
 - **For women (7-year cycles).** Jing peaks around age 21 to 28 (optimal fertility), begins to decline at 35 (wanes in the face, causing wrinkles), and is deeply depleted around 49 (menopause, as the _Tian Gui_ or reproductive essence dries up).
 - **For men (8-year cycles).** Jing peaks between 24 and 32 (strong muscles and bones, abundant sperm), begins to decline at 40 (hair loss, weakening teeth), and shows significant depletion by age 64.
 
+```mermaid
+timeline
+  title Women — 7-year cycles
+  14 : Puberty (Tian Gui arrives)
+  21–28 : Peak fertility
+  35 : Decline begins (wrinkles, hair)
+  49 : Menopause (Tian Gui depleted)
+```
+
+```mermaid
+timeline
+  title Men — 8-year cycles
+  16 : Puberty (Tian Gui arrives)
+  24–32 : Peak (strong muscles, abundant sperm)
+  40 : Decline begins (hair loss, teeth)
+  64 : Significant depletion
+```
+
 Practitioners use these timelines to manage expectations, guide preventative care, and treat age-appropriate ailments.
 
 ### How treatment restores and protects Jing
